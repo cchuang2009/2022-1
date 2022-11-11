@@ -1,0 +1,42 @@
+2022-11-02 21:41:40,863:WARNING:/Users/chu-chinghuang/opt/anaconda3/lib/python3.8/site-packages/pandas/core/computation/expressions.py:20: UserWarning: Pandas requires version '2.7.3' or newer of 'numexpr' (version '2.7.1' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+
+2022-11-02 21:41:48,455:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:41:48,456:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:41:48,456:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:41:48,457:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:41:50,510:INFO:Soft dependency imported: prophet: 1.1
+2022-11-02 21:41:51,584:INFO:Initializing load_model()
+2022-11-02 21:41:51,584:INFO:load_model(model_name=deployment_20221101_1, platform=None, authentication=None, verbose=True)
+2022-11-02 21:42:34,130:WARNING:/Users/chu-chinghuang/opt/anaconda3/lib/python3.8/site-packages/pandas/core/computation/expressions.py:20: UserWarning: Pandas requires version '2.7.3' or newer of 'numexpr' (version '2.7.1' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+
+2022-11-02 21:42:39,712:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:42:39,713:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:42:39,713:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:42:39,713:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:42:41,379:INFO:Soft dependency imported: prophet: 1.1
+2022-11-02 21:42:42,146:INFO:Initializing load_model()
+2022-11-02 21:42:42,146:INFO:load_model(model_name=deployment_20221101_1, platform=None, authentication=None, verbose=True)
+2022-11-02 21:43:59,532:WARNING:/Users/chu-chinghuang/opt/anaconda3/lib/python3.8/site-packages/pandas/core/computation/expressions.py:20: UserWarning: Pandas requires version '2.7.3' or newer of 'numexpr' (version '2.7.1' currently installed).
+  from pandas.core.computation.check import NUMEXPR_INSTALLED
+
+2022-11-02 21:44:05,961:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:44:05,961:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:44:05,962:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:44:05,962:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2022-11-02 21:44:07,597:INFO:Soft dependency imported: prophet: 1.1
+2022-11-02 21:44:08,432:INFO:Initializing load_model()
+2022-11-02 21:44:08,432:INFO:load_model(model_name=deployment_20221101_1, platform=None, authentication=None, verbose=True)
