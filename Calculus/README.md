@@ -23,3 +23,5 @@ $$
 \int x \sin{\left(x^{2} \right)} d x= \int \frac{\sin{\left(u \right)}}{2} d u 
                                   = - \frac{\cos{\left(u \right)}}{2} +C 
 $$
+
+[Demo](SingleVariableCalculus-demo.ipynb)
