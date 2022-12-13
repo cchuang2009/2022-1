@@ -18,4 +18,8 @@ Integration_Substitution(x*sin(x**2),x,x**2)
 gets:
 
 Replacing $x^2$ by $u$ gets:
-\begin{eqnarray}\int x \sin{\left(x^{2} \right)} d x&=& \int \frac{\sin{\left(u \right)}}{2} d u \cr&=& - \frac{\cos{\left(u \right)}}{2} +C \cr\end{eqnarray}
+
+\begin{eqnarray}
+\int x \sin{\left(x^{2} \right)} d x&=& \int \frac{\sin{\left(u \right)}}{2} d u \cr
+                                    &=& - \frac{\cos{\left(u \right)}}{2} +C \cr
+\end{eqnarray}
