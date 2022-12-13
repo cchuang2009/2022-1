@@ -51,7 +51,7 @@ def typeset():
 from IPython.display import HTML,Latex
 from sympy import symbols,pprint,integrate,diff,latex,limit,simplify,Matrix,Abs,Ei,Ne,solve,Function,fraction
 from sympy import pi,sqrt,sin,cos,log,tan,cot,sec,csc,exp,oo,E,tan,Piecewise,asin,atan,erf,erfc,E
-from sympy import solveset,cancel,factor,S,Interval
+from sympy import solveset,cancel,factor,S,Interval,apart,expand
 from sympy.solvers.inequalities import solve_univariate_inequality
 
 from sympy import symbols,pprint,integrate,diff,latex,simplify,Matrix,Abs,Ei,erf,erfc,E,Ne
@@ -71,6 +71,13 @@ a,b,c=symbols("a,b,c")
 # Criticals(f_,x_,rational=False,BC=[])
 # extrema_BI(f_,x_,c_)
 # diff_app(f_,x_,rational=False,BC=[])
+
+def tex(expr_):
+    """
+    convert express to latex
+    """
+    return(latex(eval(str(expr_))))
+
 
 # find critical values
 
@@ -271,8 +278,156 @@ def diff_app(f_,x_,rational=False,BC=[]):
     #text="\end{eqnarray}"
     return(Latex(text))                         
 
+### Ingration for Single-variable Functions
 
+def Integration_Substitution(f,x,g):
+    
+    f_latex=tex(f)
+    g_p=diff(g,x)
+    fu=(f/g_p).subs({g:u})
+    fu_latex=tex(fu)
+    text_pre="Replacing $%s$ by $u$ gets:" %(tex(g))
+    
+    result=integrate(fu,u)
+    result_latex=tex(result)
+    
+    text0="\\begin{eqnarray}"
+    text5="\end{eqnarray}"
+    
+    textfI="\int %s d %s" %(f_latex,x)
+    
+    textfI+="&=& \int %s d u \cr" %(fu_latex)
+    textfI+="&=& %s +C \cr" %(result_latex)
+    
+    text=text_pre+text0+textfI+text5
+    
+    return Latex(text)
 
+def Integration_by_Parts(F_,f,g,x):
+    
+    integrand = F_
+    I_latex=tex(integrand)
+    g_latex=tex(g)
+    F= integrate(f,x)
+    F_latex=tex(F)
+    gp=diff(g,x)
+    text_pre="Let $F'(x)=%s$, and  $g(x)=%s$, then: " %(tex(f),tex(g))
+        
+    result=integrate(F*gp,x)
+    result_latex=tex(result)
+         
+    text0="\\begin{eqnarray}"
+    text5="\end{eqnarray}"
+    
+    textfI="\int %s d %s" %(I_latex,x)
+    
+    textfI+="&=& %s \cdot \left(%s\\right) - \int \left(%s\\right) d u \cr" %(F_latex,g_latex,tex(F*gp))
+    textfI+="&=& %s \cdot  \left(%s\\right)  - \left(%s\\right) +C \cr" %(F_latex,g_latex,result_latex)
+    
+    text=text_pre+text0+textfI+text5
+    
+    return Latex(text)
+
+def Integration_Trigonometric_Substitution_odd(f,x,g):
+    
+    f_latex=tex(f)
+    g_p=diff(g,x)
+    if g==sin(x):
+       fu=(f/g_p).subs({sin(x):u,cos(x):sqrt(1-u**2)})
+    else:
+       fu=(f/g_p).subs({cos(x):u,sin(x):sqrt(1-u**2)})
+    fu_latex=latex(eval(str(fu)))
+    text_pre="Replacing $%s$ by $u$ gets:" %(tex(g))
+    
+    result=integrate(fu,u)
+    result_latex=tex(result)
+    
+    text0="\\begin{eqnarray}"
+    text5="\end{eqnarray}"
+    
+    textfI="\int %s d %s" %(f_latex,x)
+    
+    textfI+="&=& \int %s d u \cr" %(fu_latex)
+    textfI+="&=& %s +C \cr" %(result_latex)
+    
+    text=text_pre+text0+textfI+text5
+    
+    return Latex(text)
+
+def Integration_Trigonometric_Substitution_even(f_,x):
+    f1=f_.subs({cos(x)**2:(1+cos(2*x))/2})
+    f2=f1.subs({sin(x)**2:(1-cos(2*x))/2})
+    f3=expand(f2)
+    f4=f3.subs({cos(2*x)**2:(1+cos(4*x))/2})
+    text="\\begin{eqnarray}"
+    text+="%s &=& %s \cr" %(tex(f_),tex(f2))
+    if f4!=f2:
+       text+=" &=& %s \cr" %(tex(f4))
+    #text+=" &=& %s \cr" %(tex(f3))
+    text+="\Rightarrow \int %s dx &=&\int \left(%s \\right) dx \cr" %(tex(f_),tex(f3))
+    if f4==f3:
+       I=integrate(f4,x)
+    else:
+       text+=" &=&\int \left( %s \\right) d %s \cr" %(tex(f4),tex(x))
+       I=integrate(f4,x)
+       #f5=f4.subs({cos(2*x)**2:(1+cos(4*x))/2}) 
+    text+=" &=& %s +C \cr" %(tex((I)))       
+    text+="\end{eqnarray}" 
+    return  Latex(text)  
+
+def Integration_TrigonometricSubstitution(f,x,g,t=t):
+    
+    f_latex=tex(f)
+    g_p=diff(g,t)
+    fu=(f).subs({x:g})*g_p
+    if g==sin(t):
+       # remove the absolute op of |cos(t)| = cos(t) 
+       fu=simplify(fu).subs({sqrt(cos(t)**2):cos(t)})
+    elif g==tan(t):
+       # remove the absolute op of |sec(t)| = sec(t)
+       # convert 1/cos(t) = sec(t)
+       fu=simplify(fu).subs({sqrt(sec(t)**2):sec(t)})
+       fu=fu.subs({sqrt(1/cos(t)**2):sec(t)})
+    elif g==sec(t):
+       # remove the absolute op of |tan(t)| = tan(t)
+       fu=simplify(fu).subs({sqrt(tan(t)**2):tan(t)})
+    else:
+       J=1 
+    fu_latex=tex(fu)
+    text_pre="Replacing $x=%s$ gets:" %(tex(g))
+    #return(fu)
+    result=integrate(fu,t)
+    result_latex=tex(result)
+
+    text0="\\begin{eqnarray}"
+    text5="\end{eqnarray}"
+    
+    textfI="\int %s d %s" %(f_latex,x)
+    
+    textfI+="&=& \int %s d %s \cr" %(fu_latex,t)
+    textfI+="&=& %s +C \cr" %(result_latex)
+    
+    text=text_pre+text0+textfI+text5
+    
+    return Latex(text)
+
+def PartialFracInt(f,g,x):
+    func="(%s)/(%s)" %(f,g)
+    f_latex=latex(eval(str(func)))
+    pre0="1. Integrand could be expressed as folllows:" 
+    #return Latex(pre0)
+    pf=apart(f/g)
+    #pprint(pf)
+    pre0+="$$\\frac{%s}{%s}=%s$$" %(tex(f),tex(g),tex(pf))
+    pre0+="2. Thus the integal is evaluated as follows:"
+    #return Latex(pre0)
+    I= integrate(pf,x)
+    text="\\begin{eqnarray}"
+    text+="\int \\frac{%s}{%s} d %s" %(tex(f),tex(g),tex(x))
+    text+="&=& \int \left( %s \\right)d %s \cr" %(tex(pf),tex(x))
+    text+="&=& %s + C\cr " %(tex(I))
+    text+="\end{eqnarray}"
+    return Latex(pre0+text)
 
 
 ### Multiple-Variable Calculus
