@@ -24,4 +24,4 @@ $$
                                   = - \frac{\cos{\left(u \right)}}{2} +C 
 $$
 
-[Demo](SingleVariableCalculus-demo.ipynb)
+[Demo](SingleVariableCalculus_demo.ipynb)
