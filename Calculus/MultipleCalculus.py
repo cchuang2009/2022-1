@@ -280,6 +280,23 @@ def diff_app(f_,x_,rational=False,BC=[]):
 
 ### Ingration for Single-variable Functions
 
+def scale_func(f_,x,v):
+    """
+    f_: function 
+    x : original variable
+    v : new variable, v=f(x) where x=g(v)
+    """
+    text="Let $x = %s$:" %(tex(v))
+    text+="\\begin{eqnarray}"
+    U=solve(x-v,x)
+    J= diff(U[0],u)
+    fu=f_.subs({x:U[0]})
+    I=simplify(fu*J)
+    text+="\int %s dx &=& \int %s du" %(tex(f_),tex(I))
+    text+="\end{eqnarray}"
+    return Latex(text)
+
+
 def Integration_Substitution(f,x,g):
     
     f_latex=tex(f)
@@ -304,7 +321,10 @@ def Integration_Substitution(f,x,g):
     return Latex(text)
 
 def Integration_by_Parts(F_,f,g,x):
-    
+    """
+    vrs: F_,f,g,x
+     ∫F_dx = ∫fgdx = Fg - ∫F g'dx
+    """
     integrand = F_
     I_latex=tex(integrand)
     g_latex=tex(g)
@@ -328,8 +348,14 @@ def Integration_by_Parts(F_,f,g,x):
     
     return Latex(text)
 
-def Integration_Trigonometric_Substitution_odd(f,x,g):
-    
+def Integration_Trigonometric_odd(f,x,g):
+    """
+    ∫sin^m(x)cos^n(x)dx, m or n: odd
+    vars: (f,x,g)
+         f: integrand
+         x
+         g: sin(x) or cos(x)
+    """
     f_latex=tex(f)
     g_p=diff(g,x)
     if g==sin(x):
@@ -354,7 +380,13 @@ def Integration_Trigonometric_Substitution_odd(f,x,g):
     
     return Latex(text)
 
-def Integration_Trigonometric_Substitution_even(f_,x):
+def Integration_Trigonometric_even(f_,x):
+    """
+    ∫sin^m(x)cos^n(x)dx, m,n: even
+    vars: (f,x)
+         f: integrand
+         x
+    """
     f1=f_.subs({cos(x)**2:(1+cos(2*x))/2})
     f2=f1.subs({sin(x)**2:(1-cos(2*x))/2})
     f3=expand(f2)
@@ -376,7 +408,14 @@ def Integration_Trigonometric_Substitution_even(f_,x):
     return  Latex(text)  
 
 def Integration_TrigonometricSubstitution(f,x,g,t=t):
-    
+    """
+    ∫f(a^2 ± x^2) dx
+    vars: (f,x,g)
+         f: integrand
+         x
+         g: sin(t). tan(t), or sec(t)
+         t: theta variable       
+    """
     f_latex=tex(f)
     g_p=diff(g,t)
     fu=(f).subs({x:g})*g_p
@@ -394,7 +433,7 @@ def Integration_TrigonometricSubstitution(f,x,g,t=t):
     else:
        J=1 
     fu_latex=tex(fu)
-    text_pre="Replacing $x=%s$ gets:" %(tex(g))
+    text_pre="Replacing $%s=%s$ gets:" %(tex(x),tex(g))
     #return(fu)
     result=integrate(fu,t)
     result_latex=tex(result)
@@ -412,6 +451,13 @@ def Integration_TrigonometricSubstitution(f,x,g,t=t):
     return Latex(text)
 
 def PartialFracInt(f,g,x):
+    """
+    ∫f/gdx
+    vars: (f,x,g)
+         f: nominator
+         g: denominator
+         x: variable
+    """
     func="(%s)/(%s)" %(f,g)
     f_latex=latex(eval(str(func)))
     pre0="1. Integrand could be expressed as folllows:" 
