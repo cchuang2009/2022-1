@@ -465,7 +465,7 @@ def PartialFracInt(f,g,x):
     pf=apart(f/g)
     #pprint(pf)
     pre0+="$$\\frac{%s}{%s}=%s$$" %(tex(f),tex(g),tex(pf))
-    pre0+="2. Thus the integal is evaluated as follows:"
+    pre0+="2. Thus the integral is evaluated as follows:"
     #return Latex(pre0)
     I= integrate(pf,x)
     text="\\begin{eqnarray}"
@@ -535,7 +535,7 @@ def MultipleIntegral(f,X,XR):
     XR0=[]
     X_tex=[]
     for var in XR:
-        XR0.append([latex(eval(str(var[0]))),latex(eval(str(var[1])))])
+        XR0.append([tex[0],texvar[1]])
     for var in X:
         X_tex.append(latex(eval(str(var))))
     
@@ -552,7 +552,7 @@ def MultipleIntegral(f,X,XR):
     # indefinte I of z
     I='I'+str(X[-1])
     IX=[integrate(f,X[-1])]
-    IX_tex=[latex(eval(str(IX[0])))]
+    IX_tex=[texIX[0]]
     int_g='\left.\color{brown}{%s} \\right|_{%s}^{%s}' %(IX_tex[0],XR0[-1][0],XR0[-1][1])
     Integrand_tex_val=[int_g]
 
@@ -587,7 +587,7 @@ def MultipleIntegral(f,X,XR):
         i+=1
         
     for I_f in DIX[:-1]:
-        Integrand.append(latex(eval(str(I_f))))
+        Integrand.append(texI_f)
 
     text0="\\begin{eqnarray}"
     text5="\end{eqnarray}"
@@ -656,7 +656,7 @@ def DoubleInt_polar_v3(f,X,xr,yr,Jacobian=r):
     Theta=symbols("theta")
     #Jacobian=r
     f0=f
-    f0_latex=latex(eval(str(f0)))
+    f0_latex=tex(f0)
     
     fp=simplify(((f+0*X[0]).subs({X[0]**2+X[1]**2:r**2,X[0]:r*cos(Theta),X[1]:r*sin(Theta)})))
     fp_latex=latex(fp)
@@ -720,28 +720,28 @@ def DoubleInt_UV_v3(f,X,XU,U,xr,yr):
     
     #Jacobian=r
     f0=f
-    f0_latex=latex(eval(str(f0)))
+    f0_latex=tex(f0)
     
     fp=simplify(((f+0*X[0]).subs({X[0]:XU[0],X[1]:XU[1]})))
     fp_latex=latex(fp)
     fpp_latex=latex(fp*Jacobian)
     
     f=f*Jacobian
-    f_latex=latex(eval(str(f)))
+    f_latex=tex(f)
     X0=latex(X[0])
     X1=latex(X[1])
     
     Iyy=integrate(fp*Jacobian,U[1])
-    Iyy_latex=latex(eval(str(Iyy)))                 
+    Iyy_latex=tex(Iyy)                 
 
     Iy=integrate(fp*Jacobian,[U[1],yr[0],yr[1]])
-    Iy_latex=latex(eval(str(Iy)))
+    Iy_latex=tex(Iy)
        
     II= integrate(Iy,U[0])
-    II_latex=latex(eval(str(II)))
+    II_latex=tex(II)
     
     I=integrate(Iy,[U[0],xr[0],xr[1]])
-    I_latex=latex(eval(str(I)))
+    I_latex=tex(I)
     
     yr0=latex(eval(str(yr[0])))
     yr1=latex(eval(str(yr[1])))
@@ -798,32 +798,32 @@ def TripleInt_Cylind(f,X,XU,U,xr,yr,zr):
     fpp_latex=latex(fp*Jacobian)
     
     f=f*Jacobian
-    f_latex=latex(eval(str(f)))
+    f_latex=tex(f)
     X0=latex(X[0])
     X1=latex(X[1])
     
     Izz=integrate(fp*Jacobian,U[2])
-    Izz_latex=latex(eval(str(Izz)))                 
+    Izz_latex=tex(Izz)                
 
     Iz=integrate(fp*Jacobian,[U[2],zr[0],zr[1]])
-    Iz_latex=latex(eval(str(Iz)))
+    Iz_latex=tex(Iz)
     
     Iyy=integrate(Iz,U[1])
-    Iyy_latex=latex(eval(str(Iyy)))                 
+    Iyy_latex=tex(Iyy)              
 
     Iy=integrate(Iz,[U[1],yr[0],yr[1]])
-    Iy_latex=latex(eval(str(Iy)))
+    Iy_latex=tex(Iy)
        
     II= integrate(Iy,U[0])
-    II_latex=latex(eval(str(II)))
+    II_latex=tex(II)
     
     I=integrate(Iy,[U[0],xr[0],xr[1]])
-    I_latex=latex(eval(str(I)))
+    I_latex=tex(I)
     
-    zr0=latex(eval(str(zr[0])))
-    zr1=latex(eval(str(zr[1])))
-    yr0=latex(eval(str(yr[0])))
-    yr1=latex(eval(str(yr[1])))
+    zr0=tex(zr[0])
+    zr1=tex(zr[1])
+    yr0=tex(yr[0])
+    yr1=tex(yr[1])
     
     
     text0="\\begin{eqnarray}"
@@ -880,39 +880,39 @@ def TripleInt_Spherical(f,X,XU,U,xr,yr,zr):
     
     #Jacobian=r
     f0=f
-    f0_latex=latex(eval(str(f0)))
+    f0_latex=tex(f0)
     
     fp=simplify(((f+0*X[0]).subs({X[0]:XU[0],X[1]:XU[1],X[2]:XU[2]})))
     fp_latex=latex(fp)
     fpp_latex=latex(fp*Jacobian)
     
     f=f*Jacobian
-    f_latex=latex(eval(str(f)))
+    f_latex=tex(f)
     X0=latex(X[0])
     X1=latex(X[1])
     
     Izz=integrate(fp*Jacobian,U[2])
-    Izz_latex=latex(eval(str(Izz)))                 
+    Izz_latex=tex(Izz)               
 
     Iz=integrate(fp*Jacobian,[U[2],zr[0],zr[1]])
-    Iz_latex=latex(eval(str(Iz)))
+    Iz_latex=tex(Iz)
     
     Iyy=integrate(Iz,U[1])
-    Iyy_latex=latex(eval(str(Iyy)))                 
+    Iyy_latex=tex(Iyy)                 
 
     Iy=integrate(Iz,[U[1],yr[0],yr[1]])
-    Iy_latex=latex(eval(str(Iy)))
+    Iy_latex=tex(Iy)
        
     II= integrate(Iy,U[0])
-    II_latex=latex(eval(str(II)))
+    II_latex=tex(II)
     
     I=integrate(Iy,[U[0],xr[0],xr[1]])
-    I_latex=latex(eval(str(I)))
+    I_latex=tex(I)
     
-    zr0=latex(eval(str(zr[0])))
-    zr1=latex(eval(str(zr[1])))
-    yr0=latex(eval(str(yr[0])))
-    yr1=latex(eval(str(yr[1])))
+    zr0=tex(zr[0])
+    zr1=tex(zr[1])
+    yr0=tex(yr[0])
+    yr1=tex(yr[1])
     
     
     text0="\\begin{eqnarray}"
@@ -977,39 +977,39 @@ def TripleInt_UVW(f,X,XU,U,XR):
     fpp_latex=latex(fp*Jacobian)
     
     f=f*Jacobian
-    f_latex=latex(eval(str(f)))
+    f_latex=tex(f)
     X0=latex(X[0])
     X1=latex(X[1])
     
     Izz=integrate(fp*Jacobian,U[2])
-    Izz_latex=latex(eval(str(Izz)))                 
+    Izz_latex=tex(Izz)                 
 
     Iz=integrate(fp*Jacobian,[U[2],zr[0],zr[1]])
-    Iz_latex=latex(eval(str(Iz)))
+    Iz_latex=tex(Iz)
     
     Iyy=integrate(Iz,U[1])
-    Iyy_latex=latex(eval(str(Iyy)))                 
+    Iyy_latex=tex(Iyy)                
 
     Iy=integrate(Iz,[U[1],yr[0],yr[1]])
-    Iy_latex=latex(eval(str(Iy)))
+    Iy_latex=tex(Iy)
        
     II= integrate(Iy,U[0])
-    II_latex=latex(eval(str(II)))
+    II_latex=tex(II)
     
     I=integrate(Iy,[U[0],xr[0],xr[1]])
-    I_latex=latex(eval(str(I)))
+    I_latex=tex(I)
     
-    zr0=latex(eval(str(zr[0])))
-    zr1=latex(eval(str(zr[1])))
-    yr0=latex(eval(str(yr[0])))
-    yr1=latex(eval(str(yr[1])))
+    zr0=tex(zr[0])
+    zr1=tex(zr[1])
+    yr0=tex(yr[0])
+    yr1=tex(yr[1])
     
     XR0=[]
     X_tex=[]
     for var in XR:
-        XR0.append([latex(eval(str(var[0]))),latex(eval(str(var[1])))])
+        XR0.append([tex(var[0]),tex(var[1])])
     for var in X:
-        X_tex.append(latex(eval(str(var))))
+        X_tex.append(tex(var))
     
     ZR1=XR0[2]
     YR1=XR0[1]
