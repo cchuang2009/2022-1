@@ -50,8 +50,8 @@ def typeset():
 # sympy functions and properties 
 from IPython.display import HTML,Latex
 from sympy import symbols,pprint,integrate,diff,latex,limit,simplify,Matrix,Abs,Ei,Ne,solve,Function,fraction
-from sympy import pi,sqrt,sin,cos,log,tan,cot,sec,csc,exp,oo,E,tan,Piecewise,asin,atan,erf,erfc,E
-from sympy import solveset,cancel,factor,S,Interval,apart,expand
+from sympy import pi,I,sqrt,sin,cos,log,tan,cot,sec,csc,exp,oo,E,tan,Piecewise,asin,atan,asec,erf,erfc,E
+from sympy import re,solveset,cancel,factor,S,Interval,apart,expand
 from sympy.solvers.inequalities import solve_univariate_inequality
 
 from sympy import symbols,pprint,integrate,diff,latex,simplify,Matrix,Abs,Ei,erf,erfc,E,Ne
@@ -435,7 +435,7 @@ def Integration_TrigonometricSubstitution(f,x,g,t=t):
     fu_latex=tex(fu)
     text_pre="Replacing $%s=%s$ gets:" %(tex(x),tex(g))
     #return(fu)
-    result=integrate(fu,t)
+    result=integrate(fu,t).replace(log, lambda e: log(abs(e)))
     result_latex=tex(result)
 
     text0="\\begin{eqnarray}"
@@ -449,6 +449,80 @@ def Integration_TrigonometricSubstitution(f,x,g,t=t):
     text=text_pre+text0+textfI+text5
     
     return Latex(text)
+
+def Integration_TrigonometricSubstitution_v4(f,x,g,s=1,interval='',t=t):
+    """
+    ∫f(a^2 ± x^2) dx
+    vars: (f,x,g)
+         f: integrand
+         x
+         g: sin(t). tan(t), or sec(t)
+         s: scale of x= s sin(t) (or others)
+         I: [a,b], the list of lower and upper limits
+         t: theta variable       
+    """
+    f_latex=tex(f)
+    g_p=diff(g,t)
+    # integrand of f(u)
+    fu=(f).subs({x:g})*g_p
+    #print(g/s)
+    if g/(s*sin(t))==1:
+       # remove the absolute op of |cos(t)| = cos(t) 
+       fu=simplify(fu).subs({sqrt(cos(t)**2):cos(t)})
+       u2x = asin(x/s)
+    elif g/(s*tan(t))==1:
+       # remove the absolute op of |sec(t)| = sec(t)
+       # convert 1/cos(t) = sec(t)
+       fu=simplify(fu).subs({sqrt(sec(t)**2):sec(t)})
+       fu=fu.subs({sqrt(1/cos(t)**2):sec(t)})
+       u2x = atan(x/s) 
+    elif g/(s*sec(t))==1:
+       # remove the absolute op of |tan(t)| = tan(t)
+       fu=simplify(fu).subs({sqrt(tan(t)**2):tan(t)})
+       u2x = asec(x/s) 
+    else:
+       u2x=g 
+    fu_latex=tex(fu)
+    # get inverse of trigonomentric function
+
+        
+    #else:
+    #gx=tex(solve(x-g,t)[0])
+    #print(u2x)
+    #print(gx)
+    text_pre="Replacing $%s=%s, \left( \\text{ i.e. } %s=%s\\right)$, gets:" %(tex(x),tex(g),tex(t),tex(u2x))
+    #return(fu)
+    result=integrate(fu,t)
+    result_latex=tex(result)
+    result_x=simplify(result.subs({t:u2x}))
+    result_x_latex=tex(result_x)
+    text0="\\begin{eqnarray}"
+    text5="\end{eqnarray}"
+    
+    textfI="\int %s d %s" %(f_latex,x)
+    
+    textfI+="&=& \int %s d %s \cr" %(fu_latex,t)
+    textfI+="&=& %s +C \cr" %(result_latex)
+    textfI+="&=& %s +C \cr" %(result_x_latex)
+    
+    # definit Integral
+    if interval!='':
+       F_b=  re(result_x.subs({x:interval[1]}))
+       F_a=  re(result_x.subs({x:interval[0]}))
+       text_def_I="Then "+text0
+       text_def_I+="&&\int_{%s}^{%s} %s d %s \cr " %(tex(interval[0]),tex(interval[1]),f_latex,x)
+       text_def_I+=" &=& \left. %s \\right]_{%s}^{%s} \cr " %(result_x_latex,tex(interval[0]),tex(interval[1]))
+       text_def_I+=" &=& %s - (%s)\cr" %(tex((F_b)),tex((F_a)))
+       text_def_I+=" &=& %s " %(tex((F_b-F_a)))
+       text_def_I+=text5
+       text=text_pre+text0+textfI+text5+text_def_I
+    else:
+        text=text_pre+text0+textfI+text5
+    
+    return Latex(text)
+
+
+
 
 def PartialFracInt(f,g,x):
     """
@@ -467,7 +541,7 @@ def PartialFracInt(f,g,x):
     pre0+="$$\\frac{%s}{%s}=%s$$" %(tex(f),tex(g),tex(pf))
     pre0+="2. Thus the integral is evaluated as follows:"
     #return Latex(pre0)
-    I= integrate(pf,x)
+    I= integrate(pf,x).replace(log, lambda e: log(abs(e)))
     text="\\begin{eqnarray}"
     text+="\int \\frac{%s}{%s} d %s" %(tex(f),tex(g),tex(x))
     text+="&=& \int \left( %s \\right)d %s \cr" %(tex(pf),tex(x))
