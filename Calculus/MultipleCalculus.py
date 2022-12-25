@@ -450,7 +450,7 @@ def Integration_TrigonometricSubstitution(f,x,g,t=t):
     
     return Latex(text)
 
-def Integration_TrigonometricSubstitution_v4(f,x,g,s=1,interval='',t=t):
+def Integration_TrigonometricSubstitution_v5(f,x,g,s=1,interval='',t=t):
     """
     ∫f(a^2 ± x^2) dx
     vars: (f,x,g)
@@ -464,19 +464,20 @@ def Integration_TrigonometricSubstitution_v4(f,x,g,s=1,interval='',t=t):
     f_latex=tex(f)
     g_p=diff(g,t)
     # integrand of f(u)
-    fu=(f).subs({x:g})*g_p
+    fu=(f).subs({x:s*g})*s*g_p
     #print(g/s)
-    if g/(s*sin(t))==1:
+    if g==sin(t):
        # remove the absolute op of |cos(t)| = cos(t) 
        fu=simplify(fu).subs({sqrt(cos(t)**2):cos(t)})
+       fu=simplify(fu).subs({sqrt(1/cos(t)**2):1/cos(t)}) 
        u2x = asin(x/s)
-    elif g/(s*tan(t))==1:
+    elif g==tan(t):
        # remove the absolute op of |sec(t)| = sec(t)
        # convert 1/cos(t) = sec(t)
        fu=simplify(fu).subs({sqrt(sec(t)**2):sec(t)})
        fu=fu.subs({sqrt(1/cos(t)**2):sec(t)})
        u2x = atan(x/s) 
-    elif g/(s*sec(t))==1:
+    elif g==sec(t):
        # remove the absolute op of |tan(t)| = tan(t)
        fu=simplify(fu).subs({sqrt(tan(t)**2):tan(t)})
        u2x = asec(x/s) 
@@ -490,20 +491,21 @@ def Integration_TrigonometricSubstitution_v4(f,x,g,s=1,interval='',t=t):
     #gx=tex(solve(x-g,t)[0])
     #print(u2x)
     #print(gx)
-    text_pre="Replacing $%s=%s, \left( \\text{ i.e. } %s=%s\\right)$, gets:" %(tex(x),tex(g),tex(t),tex(u2x))
+    text_pre="Replacing $%s=%s\cdot %s, \left( \\text{ i.e. } \color{brown}{%s=%s}\\right)$, gets:" %(tex(x),tex(s),tex(g),tex(t),tex(u2x))
     #return(fu)
-    result=integrate(fu,t)
-    result_latex=tex(result)
+    result=integrate(fu,t).replace(log, lambda e: log(abs(e)))
+    #result_latex=tex(result)
     result_x=simplify(result.subs({t:u2x}))
-    result_x_latex=tex(result_x)
+    #result_x_latex=tex(result_x)
     text0="\\begin{eqnarray}"
     text5="\end{eqnarray}"
     
     textfI="\int %s d %s" %(f_latex,x)
     
     textfI+="&=& \int %s d %s \cr" %(fu_latex,t)
-    textfI+="&=& %s +C \cr" %(result_latex)
-    textfI+="&=& %s +C \cr" %(result_x_latex)
+    textfI+="&=& %s +C \cr" %(tex(result))
+    textfI+="&=& %s +C \cr" %(tex(result_x))
+    #textfI+="&=& %s +C \cr" %(tex(simplify(result_x)))
     
     # definit Integral
     if interval!='':
@@ -511,7 +513,7 @@ def Integration_TrigonometricSubstitution_v4(f,x,g,s=1,interval='',t=t):
        F_a=  re(result_x.subs({x:interval[0]}))
        text_def_I="Then "+text0
        text_def_I+="&&\int_{%s}^{%s} %s d %s \cr " %(tex(interval[0]),tex(interval[1]),f_latex,x)
-       text_def_I+=" &=& \left. %s \\right]_{%s}^{%s} \cr " %(result_x_latex,tex(interval[0]),tex(interval[1]))
+       text_def_I+=" &=& \left. %s \\right]_{%s}^{%s} \cr " %(tex(result_x),tex(interval[0]),tex(interval[1]))
        text_def_I+=" &=& %s - (%s)\cr" %(tex((F_b)),tex((F_a)))
        text_def_I+=" &=& %s " %(tex((F_b-F_a)))
        text_def_I+=text5
@@ -520,8 +522,6 @@ def Integration_TrigonometricSubstitution_v4(f,x,g,s=1,interval='',t=t):
         text=text_pre+text0+textfI+text5
     
     return Latex(text)
-
-
 
 
 def PartialFracInt(f,g,x):
