@@ -1,6 +1,6 @@
 # prepare for Latex Output
 from IPython.display import HTML,Latex
-
+from termcolor import colored
 # Colored output in Python
 
 W  = '\033[0m'  # white (normal)
@@ -49,7 +49,7 @@ def typeset():
 
 # sympy functions and properties 
 from IPython.display import HTML,Latex
-from sympy import symbols,pprint,integrate,diff,latex,limit,simplify,Matrix,Abs,Ei,Ne,solve,Function,fraction
+from sympy import symbols,pprint,integrate,diff,latex,limit,simplify,Matrix,Abs,Ei,Ne,solve,Function,fraction,hessian
 from sympy import pi,I,sqrt,sin,cos,log,tan,cot,sec,csc,exp,oo,E,tan,Piecewise,asin,atan,asec,erf,erfc,E
 from sympy import re,solveset,cancel,factor,S,Interval,apart,expand
 from sympy.solvers.inequalities import solve_univariate_inequality
@@ -1117,3 +1117,186 @@ def TripleInt_UVW(f,X,XU,U,XR):
     
     text=text0+textfunc+textfunc1+textf+text_desc+text0+text1+text2+text22+text3+text4+textf;
     return Latex(text)
+
+# Differentiation for Multiple-variable Functions
+
+
+def lagrangian(func,X,conditions):
+    """
+    Inputs:
+      func: functions of 2/3 variable
+      X: list of variables, [x,y] or [x,y,z]
+      conditions: list of condictions, [cond1,cond2,...]
+    No output, but print out the result:
+      1. one soluntion: print value of variables
+      2. more than one solutions: print out minimum and maximum
+    """
+    l,m=symbols("lambda mu")
+    if len(X)==2 and len(conditions)==1:
+       L=func+l*conditions[0]
+       cpts=solve([diff(L,x),diff(L,y),conditions[0]],[x,y,l])
+       print("Function, %s, subject to %s=0\n===" %(func,conditions[0])) 
+    elif  len(X)==3 and len(conditions)==1: 
+       L=func+l*conditions[0]
+       cpts=solve([diff(L,x),diff(L,y),diff(L,z),conditions[0]],[x,y,z,l]) 
+       print("Function, %s, subject to %s=0\n===" %(func,conditions[0])) 
+    else:
+       L=func+l*conditions[0]+m* conditions[1]
+       cpts=solve([diff(L,x),diff(L,y),diff(L,z),conditions[0],conditions[1]],[x,y,z,l,m]) 
+       print("Function, %s, subject to %s=0 and %s=0\n===" %(func,conditions[0],conditions[1]))
+    i=1
+    vals=[]
+    
+    if type(cpts)!=dict: 
+       for cpt in cpts: 
+           if len(X)==2:
+              funcVal=func.subs({x:cpt[0],y:cpt[1]})
+              print("  %d֯ ). f = %s = %s at critical value (x,y)=(%s,%s)" %(i,func,funcVal,cpt[0],cpt[1]))
+           else:
+              funcVal=func.subs({x:cpt[0],y:cpt[1],z:cpt[2]})
+              print("  %d֯ ). f = %s = %s at critical value (x,y,z)=(%s,%s,%s)" %(i,func, funcVal,cpt[0],cpt[1],cpt[2]))
+           vals.append(funcVal)
+           i+=1
+       print("  ---\n")  
+       print("  Maximum on the boundary is %s" %max(vals))
+       print("  Minimum on the boundary is %s" %min(vals)) 
+    else:
+       dictlist=[]
+       for key, value in cpts.items():
+           temp = [key,value]
+           dictlist.append(temp)
+       cpts=dictlist 
+       if len(X)==2:
+          funcVal=func.subs({x:cpts[0][1],y:cpts[1][1]}) 
+          print("  Only one critical found, (x,y)=(%s,%s)" %(cpts[0][1],cpts[1][1]))
+       else:
+          funcVal=func.subs({x:cpts[0][1],y:cpts[1][1],z:cpts[2][1]})
+          print("  f= %s = %s\n" %(func,funcVal))  
+          print("  Only one critical found, (x,y,z)=(%s,%s,%s)" %(cpts[0][1],cpts[1][1],cpts[2][1]))
+       print("  ---\n")  
+       print(colored("  it could  be extremum.", 'red') )
+
+grad = lambda func, vars :[diff(func,var) for var in vars]
+        
+def criticaltype(f,xn):
+    cpts=solve(grad(f,xn),xn)
+    H=hessian(f,xn);
+    H_det=H.det();
+    print("Hessian Matrix\n---")
+    pprint(H)
+    #H2_det=H.det()
+    num=1
+    if len(cpts)==0:
+       print("   no critical point!")  
+    elif (type(cpts)==dict):
+       """
+       If only one critical point, return {x:a,y:b} --- dict,
+       if more than one point return {(a,b),(c,d),...} --- list
+       """ 
+       cx=cpts[x]
+       cy=cpts[y]
+       print("only one critical (x,y)=(%s,%s)" %(cx,cy))
+       delta2=H_det.subs({x:cx,y:cy}) 
+       if delta2<0:
+          print("   |H|=%s<0:  Saddle point here." %delta2)
+       elif delta2==0:
+          print("   |H|=0:  No conclusion.") 
+       else:
+          f1=diff(f,x,2).subs({x:cx,y:cy})
+          if f1>0:
+             print("   |H|=%s>0, fxx=%s>0:  local minimum here." %(delta2,f1))
+          else:
+             print("   |H|=%s>0, fxx=%s<0:    local maximum here." %(delta2,f1))
+    else:
+       for i in cpts: 
+            cx=i[0]
+            cy=i[1]
+            print("%d. critical (x,y)=(%s,%s)" %(num,cx,cy))
+            delta2=H_det.subs({x:cx,y:cy}) 
+            if delta2<0:
+               print("   |H|=%s<0:  Saddle point here." %delta2)
+            elif delta2==0:
+               print("   |H|=0:  No conclusion.") 
+            else:
+               f1=diff(f,x,2).subs({x:cx,y:cy})
+               if f1>0:
+                  print("   |H|=%s>0, fxx=%s>0:  local minimum here." %(delta2,f1))
+               else:
+                  print("   |H|=%s>0, fxx=%s<0:    local maximum here." %(delta2,f1))
+            #print(H_det)
+            num+=1
+        
+        
+def criticaltype3(f,xn):
+    """
+    input:
+      f: function
+      xn: list of variables, e.g. [x,y,z]
+    output:  
+      1. critical point(s),
+      2. Hession matrix
+      3. check cictical point a). none b). one in dict c). one in list format
+                              d) more than one critical points
+      4. a). relative maximum  if H: negative definite
+         b). relative minimum  if H: positive definite
+         c). no conclusion if |H|=0,
+         d). neither max nor min if none of above.
+    """
+    cpts=solve(grad(f,xn),xn)
+    print(colored('Critical Point(s): ','blue',attrs=['bold']),cpts,"\n___\n")
+    
+    H=hessian(f,xn);
+    H_det=H.det();
+    print("Hessian Matrix\n---")
+    pprint(H)
+    
+    num=1
+
+    if len(cpts)==0:
+       print("   no critical point!") 
+    elif (type(cpts)==dict):
+       """
+       If only one critical point, return {x:a,y:b} --- dict,
+       if more than one point return {(a,b),(c,d),...} --- list
+       """
+       x0,y0,z0=cpts[x],cpts[y],cpts[z]
+       print("only one critical point: ({},{},{})".format(x0,y0,z0)) 
+       delta3=H.subs({x:cpts[x],y:cpts[y],z:cpts[z]}) 
+       f_val=f.subs({x:cpts[x],y:cpts[y],z:cpts[z]})  
+       if (delta3.is_positive_definite):
+          print(" local minimum of {}: {}  at ({},{},{}) ".format(f,f_val,x0,y0,z0))
+       elif (delta3.is_negative_definite):
+          print(" local maxmum of {}: {}  at ({},{},{}) ".format(f,f_val,x0,y0,z0)) 
+       else:
+          print("Neither maximum nor minimum at ({},{},{}) ".format(x0,y0,z0))
+    elif (len(cpts)==1):
+       """
+       If only one critical point, return {x:a,y:b} --- dict,
+       if more than one point return {(a,b),(c,d),...} --- list
+       """
+       x0,y0,z0=cpts[0][0],cpts[0][1],cpts[0][2]
+       print("only one critical point: ({},{},{})".format(x0,y0,z0)) 
+       delta3=H.subs({x:x0,y:y0,z:z0}) 
+       f_val=f.subs({x:x0,y:y0,z:z0})  
+       if (delta3.is_positive_definite):
+          print(" local minimum of {}: {}  at ({},{},{}) ".format(f,f_val,x0,y0,z0))
+       elif (delta3.is_negative_definite):
+          print(" local maxmum of {}: {}  at ({},{},{}) ".format(f,f_val,x0,y0,z0)) 
+       else:
+          print("Neither maximum nor minimum at ({},{},{}) ".format(x0,y0,z0))         
+    else:
+       for cpt in cpts: 
+            x0,y0,z0=cpt[0],cpt[1],cpt[2]
+            print("%d. critical (x,y,z)=(%s,%s,%s)" %(num,x0,y0,z0))
+            delta3=H.subs({x:x0,y:y0,z:z0}) 
+            f_val=f.subs({x:x0,y:y0,z:z0})  
+            if (delta3.is_positive_definite):
+                print(" local minimum of {}: {}  at ({},{},{}) ".format(f,f_val,x0,y0,z0))
+            elif (delta3.is_negative_definite):
+                print(" local maximum of {}: {}  at ({},{},{}) ".format(f,f_val,x0,y0,z0)) 
+            elif delta3.det()==0:
+                print("   No Conclusion since |H|=0")
+            else:
+                
+                print("Neither maximum nor minimum at ({},{},{}) ".format(x0,y0,z0)) 
+            num+=1             
