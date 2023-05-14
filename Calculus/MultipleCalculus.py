@@ -609,7 +609,7 @@ def MultipleIntegral(f,X,XR):
     XR0=[]
     X_tex=[]
     for var in XR:
-        XR0.append([tex[0],texvar[1]])
+        XR0.append([tex(var[0]),tex(var[1])])
     for var in X:
         X_tex.append(latex(eval(str(var))))
     
@@ -626,7 +626,7 @@ def MultipleIntegral(f,X,XR):
     # indefinte I of z
     I='I'+str(X[-1])
     IX=[integrate(f,X[-1])]
-    IX_tex=[texIX[0]]
+    IX_tex=[tex(IX[0])]
     int_g='\left.\color{brown}{%s} \\right|_{%s}^{%s}' %(IX_tex[0],XR0[-1][0],XR0[-1][1])
     Integrand_tex_val=[int_g]
 
@@ -661,7 +661,7 @@ def MultipleIntegral(f,X,XR):
         i+=1
         
     for I_f in DIX[:-1]:
-        Integrand.append(texI_f)
+        Integrand.append(tex(I_f))
 
     text0="\\begin{eqnarray}"
     text5="\end{eqnarray}"
