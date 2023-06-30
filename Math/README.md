@@ -24,7 +24,7 @@ Lectures
 2. [Germany Tanks Estimated](GermanyTanks.ipynb), by simple Bayesian rule, the alliance could get the accurate infomation about the tank made in world war II,
 3. [Guards in Gallery](ArtGalleryProblem.ipynb), How many are guards arranged for security in gallery? According to Geometry, it is enough only ...
 4. [Cats chasing with each other tail](Differential%20Equation/2015-2-4-1.ipynb), Just as like Newton, we can observe the wonderful world in detail.
-5. [How long is the the coast line? Infinite!](3%20Topology/2-dimension.ipynb), Don't be confused, this coulbe be  explained  by  topoloy.
+5. [How long is the the coast line? Infinite!](3%20Topology/2-dimension.ipynb), Don't be confused, this could  be  explained  by  topoloy.
 6.  [Sound effect can't be duplicated](KrabsStepTone.ipynb), You would wonder why the tone  of Krabs Step walks so fast in Cartoon, Sponge Bob. Let us explain by Fourier series...
 7. [Playerbook of MLB, by Markov Chain](MarkovChain/2023-3-9_MC.ipynb), Evaluate the Rule rigorously, how do we climb the top of MLB, the world baseball game? 
 
