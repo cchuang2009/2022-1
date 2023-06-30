@@ -8,7 +8,7 @@ Prelude
       
 A Mathematician, a physician, and a engineer were on a train toward to Scotland. They saw a black sheep on the field. 
 
-"All the sheep are black", engineer said.
+"All the sheeps are black", engineer said.
 "There is at least one sheep is black in Scotland.", physician said.
 "No, no, the sheep in Scotland is one-half black.", the mathematician laughed. 
 
