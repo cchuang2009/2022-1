@@ -21,7 +21,7 @@ Just open you mind to explore the world!
 Lectures
 
 1. [Introdubction](index.jpynb)
-2. [Germany Tanks Estimated](GermanyTanks​.ipynb), by simple Bayesian rule, the alliance could get the accurate infomation about the tank made in world war II,
+2. [Germany Tanks Estimated](GermanyTank.ipynb), by simple Bayesian rule, the alliance could get the accurate infomation about the tank made in world war II,
 3. [Guards in Gallery](ArtGalleryProblem.ipynb), How many are guards arranged for security in gallery? According to Geometry, it is enough only ...
 4. [Cats chasing with each other tail](Differential%20Equation/2015-2-4-1.ipynb), Just as like Newton, we can observe the wonderful world in detail.
 5. [How long is the the coast line? Infinite!](3%20Topology/2-dimension.ipynb), Don't doubt, thid id right if you understand topoloy.
