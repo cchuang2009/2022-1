@@ -20,7 +20,7 @@ Just open you mind to explore the world!
 ---
 Lectures
 
-1. [Introdubction](1%20Introduction/index.ipynb)
+1. [Introduction](1%20Introduction/index.ipynb)
 2. [Germany Tanks Estimated](GermanyTanks.ipynb), by simple Bayesian rule, the alliance could get the accurate infomation about the tank made in world war II,
 3. [Guards in Gallery](ArtGalleryProblem.ipynb), How many are guards arranged for security in gallery? According to Geometry, it is enough only ...
 4. [Cats chasing with each other tail](Differential%20Equation/2015-2-4-1.ipynb), Just as like Newton, we can observe the wonderful world in detail.
