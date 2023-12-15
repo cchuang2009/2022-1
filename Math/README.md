@@ -27,6 +27,7 @@ Lectures
 5. [How long is the the coast line? Infinite!](3%20Topology/2-dimension.ipynb), Don't be confused, this could  be  explained  by  topology.
 6.  [Sound effect can't be duplicated](KrabsStepTone.ipynb), You would wonder why the tone  of Krabs Step walks so fast in Cartoon, Sponge Bob. Let us explain by Fourier series...
 7. [Playerbook of MLB, by Markov Chain](MarkovChain/2023-3-9_MC.ipynb), Evaluate the Rule rigorously, how do we climb the top of MLB, the world baseball game? 
+8. [Ice Skating or Curling](IceSkating.ipynb), How to control gliding on the ice whatever we want even the friction of ice is very low?
 
 Also we had explored the QC too:
 
