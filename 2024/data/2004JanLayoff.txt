@@ -1,0 +1,44 @@
+# https://www.visualcapitalist.com/all-the-major-tech-layoffs-in-2024-so-far/
+Date,Company,JobsCut,Percent_of_Company_Employees,Industry
+Jan 02,The Messenger,24,N/A,Media
+Jan 02,FrontDesk,200,100%,Travel
+Jan 03,Orca Security,60,15%,Security
+Jan 03,Lazada Group,100,30%,Retail
+Jan 04,Trigo,30,15%,Retail
+Jan 05,Cue Health,94,N/A,Healthcare
+Jan 06,NanoString Tech,50,9%,Healthcare
+Jan 08,BenchSci,70,17%,Healthcare
+Jan 08,Pitch,80,67%,Other
+Jan 08,Flexe,99,38%,Logistics
+Jan 08,NuScale Power,154,28%,Energy
+Jan 08,Flipkart,1100,5%,Retail
+Jan 08,Unity,1800,25%,Other
+Jan 09,Humane,10,4%,Hardware
+Jan 09,Rent the Runway,37,10%,Retail
+Jan 09,Uber Freight,40,N/A,Logistics
+Jan 09,Nevro,63,5%,Healthcare
+Jan 09,Branch,85,N/A,Finance
+Jan 09,Twitch,500,35%,Consumer
+Jan 10,Instagram,60,N/A,Consumer
+Jan 10,BeamBenefits,74,N/A,Healthcare
+Jan 10,IAC,330,N/A,Consumer
+Jan 10,Google,1000,0.5%,Consumer
+Jan 11,Sisense,60,13%,Data
+Jan 11,Audible,100,5%,Media
+Jan 11,Inmobi,125,5%,Marketing
+Jan 11,Discord,170,17%,Consumer
+Jan 11,Playtika,300,10%,Consumer
+Jan 11,New Work SE,400,N/A,Consumer
+Jan 12,GrabCAD,13,N/A,Other
+Jan 12,Veeam,300,N/A,Data
+Jan 16,First Mode,48,20%,Transport
+Jan 16,SonderMind,49,17%,Healthcare
+Jan 16,Sirplus,60,N/A,Food
+Jan 16,YouTube,100,5%,Media
+Jan 18,Amazon,30,N/A,Retail
+Jan 19,Wayfair,1650,13%,Retail
+Jan 21,SolarEdge,900,16%,Energy
+Jan 22,Riot Games,530,11%,Consumer
+Jan 22,TikTok,60,N/A,Consumer
+Jan 23,Brex,282,20%,Finance
+Jan 23,Vroom,800,80%,Transport
