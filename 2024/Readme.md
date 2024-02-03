@@ -71,6 +71,8 @@ Look so complicated; actually it is but is necessary in recent cloud computing e
 Lectures
 ---
 - Week 1, [Development and Cloud Python Computing Environment, Introduction](index.ipynb), Setup of Python Cloud Conputing Environment.
+- [Basic Python](Basics.ipynb)
+- [Databases, Introduction](Databases_intro.ipynb)
 - [I Time Series](StockPriceCopulas.ipynb)
 - [II Supervided Model](crime_df.ipunb)
 - [III Non-Supervived Model](uber_demond.ipynb)
