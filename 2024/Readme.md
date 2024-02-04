@@ -72,6 +72,7 @@ Lectures
 ---
 - Week 1, [Development and Cloud Python Computing Environment, Introduction](index.ipynb), Setup of Python Cloud Conputing Environment.
 - [Basic Python](Basics.ipynb)
+- [Visualization](Visualization.ipynb)
 - [Databases, Introduction](Databases_intro.ipynb)
 - [I Time Series](StockPriceCopulas.ipynb)
 - [II Supervided Model](crime_df.ipunb)
