@@ -78,3 +78,8 @@ Lectures
 - [II Supervided Model](crime_df.ipunb)
 - [III Non-Supervived Model](uber_demond.ipynb)
 - Week 17, [LLM on Colab](Llama2OnColab.ipynb) Implement Llama2 on Google Drive (with GPU)
+
+Additional
+---
+1. [Survival analysis for Churn](Survival_churn.ipynb)
+
