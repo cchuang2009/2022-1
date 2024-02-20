@@ -7,4 +7,5 @@ Resources for Lectures in Chang-Gung University, Taiwan
    - Basics of ML, AI, absolutely Mini lectures;
    - Introduction: Model Building, included [Prophet](https://github.com/facebook/prophet), [pycaret](https://pycaret.gitbook.io/docs/) etc;
    - Deployment of Model: App integration among [github](https://github.com), [Heroku](https://www.heroku.com), [Streamlit](Streamlit),[HuggingFace](https://huggingface.co), [Amazon AWS](https://aws.amazon.com/console/) 
+3. [AI for  Enterprcice;s Application](2024)
    
