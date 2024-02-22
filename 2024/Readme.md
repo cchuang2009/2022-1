@@ -31,7 +31,7 @@ Grading
 ---      
 1. Conceptual and Coding Homeworks: 30%,
 2. Projects and Oral presentation: 40%
-3. Lecture Attendance: 30%
+3. Lecture Participation: 30%
 
 Requirements
 ---
