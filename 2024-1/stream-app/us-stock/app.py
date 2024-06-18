@@ -29,7 +29,7 @@ def app():
 
     st.title("📈 美股")
     popular_symbols = ["AAPL",  "NVDA", "ARM", "MSFT", "AVGO","QCOM","AMZN", "GOOGL","TSLA", "META", "BRK-B", "V", "JPM","SMCI"]
-    popular_symbols_c = {"AAPL":"AAPL, 蘋果", "NVDA":"Nvida, 輝達",  "ARM": "ARM, 安謀", "MSFT":"MSFT, 微軟", "AVGO":"AVGO, 高通","QCOM":"QCOM, 博通","AMZN":" AMZN, 亞馬遜", "GOOGL":"GOOGL, 谷歌","TSLA":"TSLA, 特斯拉", "META":"META, 元宇宙", "BRK-B":"BRK-B, 波客夏", "V":"V, Visa", "JPM":"JPM, 摩根","SMIC":"SMCI, 美超微"}
+    popular_symbols_c = {"AAPL":"AAPL, 蘋果", "NVDA":"Nvida, 輝達",  "ARM": "ARM, 安謀", "MSFT":"MSFT, 微軟", "AVGO":"AVGO, 高通","QCOM":"QCOM, 博通","AMZN":" AMZN, 亞馬遜", "GOOGL":"GOOGL, 谷歌","TSLA":"TSLA, 特斯拉", "META":"META, 元宇宙", "BRK-B":"BRK-B, 波客夏", "V":"V, Visa", "JPM":"JPM, 摩根","SMCI": "SMCI, 美超微"}
     symbol = st.sidebar.selectbox("Select a stock symbol, 股票 代號:", popular_symbols, index=2)
 
     if symbol:
