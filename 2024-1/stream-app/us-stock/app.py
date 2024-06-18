@@ -28,7 +28,7 @@ def app():
     st.markdown(hide_menu_style, unsafe_allow_html=True)
 
     st.title("📈 美股")
-    popular_symbols = ["AAPL",  "NVDA", "ARM", "MSFT", "AVGO","QCOM","AMZN", "GOOGL","TSLA", "FB", "BRK-B", "V", "JPM"]
+    popular_symbols = ["AAPL",  "NVDA", "ARM", "MSFT", "AVGO","QCOM","AMZN", "GOOGL","TSLA", "META", "BRK-B", "V", "JPM"]
     popular_symbols_c = {"AAPL":"AAPL, 蘋果", "NVDA":"Nvida, 輝達",  "ARM": "ARM", "MSFT":"MSFT, 微軟", "AVGO":"AVGO, 高通","QCOM":"QCOM, 博通","AMZN":" AMZN, 亞馬遜", "GOOGL":"GOOGL","TSLA":"TSLA, 特斯拉", "META":"META", "BRK-B":"BRK-B, 波客夏", "V":"V, Visa", "JPM":"JPM, 摩根"}
     symbol = st.sidebar.selectbox("Select a stock symbol, 股票 代號:", popular_symbols, index=2)
 
