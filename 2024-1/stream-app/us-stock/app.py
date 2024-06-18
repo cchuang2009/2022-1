@@ -45,7 +45,7 @@ def app():
        with col1:
             st.metric("Close Price, 收盤價", f"${latest_close_price:.2f}")
        with col2:
-            st.metric("Price Difference (YoY), 連收益 ", f"${price_difference:.2f}", f"{percentage_difference:+.2f}%")
+            st.metric("Price Difference (YoY), 年收益 ", f"${price_difference:.2f}", f"{percentage_difference:+.2f}%")
        with col3:
             st.metric("52-Week High, 年度最高收盤價", f"${max_52_week_high:.2f}")
        with col4:
